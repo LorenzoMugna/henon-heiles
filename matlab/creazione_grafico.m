@@ -3,7 +3,7 @@
 % err_hamiltoniana vettore N_INTERSEZIONI
 
 
-function creazione_grafico(energia,intersezioni, err_hamiltoniana)
+function creazione_grafico(energia, intersezioni, err_hamiltoniana)
 	% Creazione grafico
 	figure
 	colormap('winter')
@@ -12,12 +12,16 @@ function creazione_grafico(energia,intersezioni, err_hamiltoniana)
 	title(strcat("Intersezioni per H = ", rats(energia)))
 	xlabel('q_y')
 	ylabel('p_y')
-	axis([-0.5, 0.5, -0.5, 0.5])
+	axis([-0.3, 0.5, -0.3, 0.3])
 	for i = 1:size(intersezioni, 2)/2
 		plot(intersezioni(:, 2*i-1), intersezioni(:, 2*i), '.')
 	end
-	hold off
-	% Grafico errore Hamiltoniana
 	
+	hold on
+	% Grafico errore Hamiltoniana
+	subplot(4,4, 13:16)
+	plot(err_hamiltoniana)
+
+	% saveas(gcf, strcat('img/grafico_test.png'))
 
 end

@@ -1,22 +1,26 @@
-\documentclass[a4paper, openright, twoside]{article}
+\documentclass[a4paper]{article}
 \usepackage[utf8]{inputenc}
 \usepackage{amsmath}
 \usepackage{tikz}
 \usepackage{pgfplots}
+\usepackage{subcaption}
+\usepackage[backend=bibtex]{biblatex}
+\usepackage[italian]{babel}
 
 
+\numberwithin{equation}{section}
+\numberwithin{figure}{section}
 
-
-\renewcommand{\contentsname}{Indice}
-\numberwithin{equation}{subsection}
-
+\addbibresource{documentazione.bib}
+\newcommand{\aj}{The Astronomic Journal}
 \title{
-	Integrazione numerica del sistema di Hénon-Heiles con metodi numerici simplettici\\
+	Studio analitico e numerico del sistema di Hénon-Heiles\\
 	\vspace{1cm}	
-	Complementi di Matematica\\
+	"Complementi di Matematica: EDO e le loro applicazioni"\\
 	\begin{large}
-	Milo viviani
+		Milo Viviani
 	\end{large}
+	\vspace{1cm}
 
 }
 
@@ -29,41 +33,134 @@
 \tableofcontents
 \clearpage
 
-\section{Il sistema Hénon-Heiles}
-\subsection{Cenni storici}
+\section{Introduzione}
+Nel 1962 all'università di Princeton, Michael Hénon e  Carl Heiles,
+stavano lavorando sul movimento delle stelle attorno a un centro galattico.
+Usando un sistema a coordinate cilindriche $(R,\theta,z)$, si sono chiesti:
+quale parte dello spazio delle fasi 6-dimesionale $(R,\theta,z, \dot{R},\dot{\theta}, \dot{z})$
+viene riempito dalle orbite su lunghi periodi di tempo?\cite{1964henonheiles}
+Dove per molto tempo si intende molte rivoluzioni intorno alla galassia.
 
-\subsection{Descrizione del modello}
+A questa domanda hanno provato a dare risposta cercando di trovare degli integrali isolanti,
+ovvero delle funzioni il cui valore rimane invariato nel tempo.
 
-Il modello di Hénon-Heiles è un sistema Hamiltoniano non lineare e non integrabile.
-La funzione hamiltoniana è data dalle seguenti equazioni per l'energia cinetica e
-per il potenziale (Figura \ref{img:potenzialehh}). Si noti che per convenienza, la massa viene normalizzata ($m=1$)
-\begin{eqnarray}	
-	&H(q,p) = T(p) + U(q) \label{eq:ham}\\
-	&T(p) = \frac{1}{2}(p_x^2+p_y^2) \label{eq:cinetica}\\
-	&U(q) = \frac{1}{2}(q_x^2+q_y^2+2q_x^2q_y-\frac{2}{3}q_y^3) \label{eq:potenziale}
-\end{eqnarray}
-
-Il potenziale può essere meglio compreso se espresso nella sua forma polare
+Ad ogni integrale corrisponde un iperpiano sullo spazio delle fasi, trattandosi di uno spazio
+delle fasi a 6 dimensioni, sappiamo che esitono 5 integrali $I_i,\ 1\le i\le 5$ e le soluzioni
+sono rappresentate dall'intersezione delle 5 ipersuperfici, al variare delle costanti
+$C_i,\ 1\le i\le 5$ che vengono imposte
 
 \begin{equation}
-	\frac{1}{2}r^2 + \frac{1}{3}r^3sin(3\theta)
+	I_i = C_i,\ 1,\le i\le 5
 \end{equation}
 
+In particolare, per studiare quale parte dello spazio delle fasi venisse riempita, Hénon e Heiles
+si sono concentrati sugli integrali isolanti, dato che gli integrali non-isolanti hanno come
+ipersuperficie un'infinità di fogli che riempie lo spazio delle fasi in maniera
+densa\cite{1964henonheiles}.
+
+Gli integrali non-isolanti risultano quindi inutili nella pratica, vengono quindi ignorati e
+si fa riferimento agli integrali isolanti semplicemente come integrali.
+
+2 integrali isolanti in questo caso sono noti, sono rispettivamente l'energia (\ref{eq:consenergia})
+e il momento angolare (\ref{eq:consmomangolare})
+
+\begin{eqnarray}
+	&&I_1 = U(R,z) + \frac{1}{2}(\dot{R}^2+R^2\dot{\theta}^2+\dot{z}^2) \label{eq:consenergia}\\
+	&&I_2 = R^2\dot{\theta} \label{eq:consmomangolare}
+\end{eqnarray}
+
+In generale, è stato mostrato che $I_4$ ed $I_5$ sono non-isolanti, ma la natura dell'integrale
+$I_3$ non è nota.
+
+Hénon e Heiles hanno quindi proceduto simulando il problema considerando un caso più generale
+e dimenticando la natura astronomica del problema, hanno cioè provato a studiare l'esistenza
+di un terzo integrale per un generico potenziale con simmetria rotazionale $U(R,z)$ generico.
+
+\clearpage
+\section{Riduzione al moto su un piano}
+Il problema è del tutto equivalente al moto di un punto materiale su un piano con potenziale
+arbitrario. D'ora in avanti, lo spazio delle fasi sarà rappresentato da $(x,y,\dot{x},\dot{y})$,
+con $x$ e $y$ che vanno a sostituire $R$ e $z$. Con uno spazio delle fasi si hanno 3 integrali,
+e sappiamo che $I_1 = U(x,y)+\frac{1}{2}(\dot{x}^2+\dot{y}^2)$, l'energia totale, è isolante e $I_3$ è
+in generale non isolante.
+
+Non esiste un'integrale per il momento angolare dato che nel caso generale $U(x,y)$ non ha
+simmetrie.
+
+A questo punto si vuole scoprire la natura del secondo integrale $I_2$.
+
+Sapendo 3 delle 4 componenti dello spazio delle fasi e l'energia iniziale, ad esempio $(x,y,\dot{y})$,
+è possibile
+ricavare la quarta, in questo caso $\dot{x}$ tramite
+\begin{equation}
+	U(x,y)+\frac{1}{2}(\dot{x}^2+\dot{y}^2) = E \label{eq:consenergiaxy}
+\end{equation}
+e in particolare $\dot{x} = \sqrt{2E-2U(x,y)-\dot{y}^2}$
+
+Dato che $\dot{x}^2\ge0$ possiamo dire che
+\begin{equation}
+	U(x,y)+\frac{1}{2}\dot{y}^2 \le E
+\end{equation}
+e tale equazione definisce un volume chiuso in $(x,y,\dot{y})$.
+
+In assenza di un secondo integrale isolante, tutto il volume viene eventualmente riempito,
+altrimenti, il moto rimane confinato sulla superficie risultante dalle soluzioni del sistema
+composto da (\ref{eq:consenergiaxy}) e $I_2 = C_2$.
+
+Per controllare l'esistenza di un secondo integrale, vengono considerate le intersezioni della
+traiettoria con un piano detto taglio di Poincaré. In questo caso, vengono considerati i punti
+$(y,\dot{y})$ che soddisfano $x=0$ e $\dot{x}>0$ e si controlla che in un tempo sufficiente lungo
+(idealmente infinito) i punti ottenuti non riempiano una superficie sul piano $(y,\dot{y})$. Nel
+caso ciò avvenga, la natura del secondo integrale sarà confermata essere non-isolante, nel caso
+invece tali punti rimangano confinati lungo delle curve, $I_2$ è di natura isolante.
+
+\section{Potenziale di Hénon-Heiles}
+
+%region figure potenziale
 \begin{figure}[h!]
 	\centering
-	\includegraphics[width=10cm]{../img/potenziale_henon_heiles.png}
-	\caption{Il potenziale di Hénon-Heiles}
+	\begin{subfigure}[t]{.5\textwidth}
+		\centering
+		\includegraphics[width=\linewidth]{../img/potenziale_henon_heiles.png}
+		\caption{Il potenziale di Hénon-Heiles}
+		\label{img:potenziale3d}
+	\end{subfigure}%
+	\begin{subfigure}[t]{.5\textwidth}
+		\centering
+		\includegraphics[width=\linewidth]{../img/curve_livello_henon_heiles.png}
+		\caption{In rosso, il punto di equilibrio stabile $(0,0)$ e le linee date da
+		$U(q)=\frac{1}{6}$} 
+		\label{img:curvelivello}
+	\end{subfigure}
+	\caption{Rappresentazioni grafiche del potenziale}
 	\label{img:potenzialehh}
 \end{figure}
+%endregion
 
-Come tutti i sistemi hamiltoniani, le equazioni del moto sono date da:
+Prima di cominciare con la sperimentazione numerica, è necessario scegliere un potenziale e un
+metodo numerico adeguati.
 
+\begin{eqnarray}	
+	&&U(q) = \frac{1}{2}(q_x^2+q_y^2+2q_x^2q_y-\frac{2}{3}q_y^3) \label{eq:potenziale}
+\end{eqnarray}
+tale potenziale (Figura \ref{img:potenzialehh}) è stato ricavato dopo alcuni tentativi
+\cite{1964henonheiles}.
+I motivi che hanno portato alla scelta funzione (\ref{eq:potenziale}) sono (1)
+è semplice analiticamente e rende facile una computazione della traiettoria (si pensi al fatto
+che l'articolo originale, \cite{1964henonheiles} in bibliografia, risale al 1963);
+(2) presenta soluzioni con proprietà non banali\cite{hairer}. 
+Hénon e Heiles ritengono anche che il potenziale (\ref{eq:potenziale}) sia rappresentativo del caso
+generico e che non ci siano cambiamenti fondamentali con l'inserimento di termini di ordine maggiore.
+
+\section{Integrazione numerica}
+
+Come per tutti i sistemi hamiltoniani, le equazioni del moto sono date da:
 \begin{eqnarray}
 	\dot{p} = -\frac{\partial H}{\partial q}\\
 	\dot{q} = \frac{\partial H}{\partial p}
 \end{eqnarray}
-Esprimibile in forma più compatta
 
+Esprimibile in forma più compatta
 \begin{equation}
 	\frac{d}{dt}
 	\begin{bmatrix}
@@ -74,12 +171,55 @@ Esprimibile in forma più compatta
 	\end{bmatrix} = 
 	J^{-1}\nabla H(p,q)
 \end{equation}
+dove $J$ è una matrice $2n\times 2n$ definita come $\begin{bmatrix}
+O&I\\-I&O \end{bmatrix}$. La sua inversa è $\begin{bmatrix}
+O&-I\\I&O \end{bmatrix}$.
 
-Dove $J$ è una matrice $2n\times 2n$ definita come $\begin{bmatrix}
-	O&I\\-I&O \end{bmatrix}$. La sua inversa è $\begin{bmatrix}
-	O&-I\\I&O \end{bmatrix}$
+Utilizzando $H(p,q) = U(q)+\frac{1}{2}(p_x^2+P_y^2)$, dove $U$ è il potenziale (\ref{eq:potenziale})
+descritto nella sezione precedente, si ricavano le
+seguenti equazioni:
+$$
+\begin{cases}
+	\dot{q_x} = p_x\\
+	\dot{q_y} = p_y\\
+	\dot{p_x} = -q_x-2q_x q_y\\
+	\dot{p_y} = -q_x^2 + q_y^2 - q_y
+\end{cases}
+$$
+
+Usando il metodo Størmer-Verlet come riferimento, dato che si comporta come la soluzione
+esatta\cite{hairer}, analizzeremo dal punto di vista della correttezza i metodi Eulero esplicito
+ed Eulero implicito.
+
+Nei seguenti grafici mostreremo l'insieme delle intersezioni con il taglio di Poincaré (a colori
+diversi corrispondono condizioni iniziali differenti) e l'andamento dell'Hamiltoniana per una delle
+orbite rappresentate.
+
+\begin{figure}[h!]
+	\centering
+	\begin{subfigure}[t]{.49\textwidth}
+		\centering
+		\includegraphics[width=\linewidth]{../img/grafico_H_1-12_strVrl.png}
+	\end{subfigure}
+	\begin{subfigure}[t]{.49\textwidth}
+		\centering
+		\includegraphics[width=\linewidth]{../img/grafico_H_1-10_strVrl.png}
+	\end{subfigure}
+	\begin{subfigure}[t]{.49\textwidth}
+		\centering
+		\includegraphics[width=\linewidth]{../img/grafico_H_1-8_strVrl.png}
+	\end{subfigure}
+	\begin{subfigure}[t]{.49\textwidth}
+		\centering
+		\includegraphics[width=\linewidth]{../img/grafico_H_1-6_strVrl.png}
+	\end{subfigure}
+
+	\caption{Taglio di Poincaré e andamento dell'hamiltoniana per diversi valori di H,
+	ottenuti dal metodo di Størmer-Verlet}
+\end{figure}
 
 
-\subsection{Integrazione numerica}
 
+\clearpage
+\printbibliography
 \end{document}
