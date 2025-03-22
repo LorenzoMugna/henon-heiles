@@ -311,3 +311,4 @@ TSWLatexianTemp*
 
 # i nostri gitignore
 img/*
+*.pdf
