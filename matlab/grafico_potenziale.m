@@ -19,18 +19,17 @@ view(50,40)
 % matlab2tikz('latex/potenziale_henon_heiles.tex')
 figure(2)
 hold on
-x = linspace(-1, 1, 500); 
-y = linspace(-1, 1.2, 500); 
+x = linspace(-1.1, 1.1, 500); 
+y = linspace(-1.1, 1.1, 500); 
 [X, Y] = meshgrid(x, y); 
 Z = U_func([X(:)'; Y(:)']); 
 Z = reshape(Z, size(X)); 
 
 
-contourf(X, Y, Z, 30, 'LineColor', 'k') % Filled contour plot with 20 levels
+contourf(X, Y, Z, [0:30]/40, 'LineColor', 'k') % Filled contour plot with 20 levels
 colorbar
 title('Curve di livello del potenziale di Hénon-Heiles')
 xlabel('q_x')
 ylabel('q_y')
 contour(X, Y, Z, [1/6,1/6], 'LineColor', 'r')
 plot(0,0, 'r.')
-saveas(gcf, 'img/curve_livello_henon_heiles.png')

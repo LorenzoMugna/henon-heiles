@@ -1,6 +1,8 @@
 \documentclass[a4paper]{article}
 \usepackage[utf8]{inputenc}
 \usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsfonts}
 \usepackage{tikz}
 \usepackage{pgfplots}
 \usepackage{subcaption}
@@ -13,6 +15,8 @@
 
 \addbibresource{documentazione.bib}
 \newcommand{\aj}{The Astronomic Journal}
+\newcommand{\hess}[1]{\mathbf{H}_{#1}}
+
 \title{
 	Studio analitico e numerico del sistema di Hénon-Heiles\\
 	\vspace{1cm}	
@@ -34,36 +38,37 @@
 \clearpage
 
 \section{Introduzione}
-Nel 1962 all'università di Princeton, Michael Hénon e  Carl Heiles,
-stavano lavorando sul movimento delle stelle attorno a un centro galattico.
-Usando un sistema a coordinate cilindriche $(R,\theta,z)$, si sono chiesti:
+Nel 1962 nell'università di Princeton, Michael Hénon e  Carl Heiles,
+stavano lavorando sul movimento delle stelle attorno a un centro galattico,
+con l'ipotesi che il potenziale fosse tempo-invariante e simmetrico rispetto ad un asse.
+cioè usando un sistema di coordinate cilindriche $(R,\theta,z)$ si avrebbe $U(R,z)$.
+
+In particolare si sono chiesti:
 quale parte dello spazio delle fasi 6-dimesionale $(R,\theta,z, \dot{R},\dot{\theta}, \dot{z})$
-viene riempito dalle orbite su lunghi periodi di tempo?\cite{1964henonheiles}
+viene riempito dalle orbite dei corpi su lunghi periodi di tempo? \cite{1964henonheiles}
 Dove per molto tempo si intende molte rivoluzioni intorno alla galassia.
 
 A questa domanda hanno provato a dare risposta cercando di trovare degli integrali isolanti,
-ovvero delle funzioni il cui valore rimane invariato nel tempo.
+ovvero delle funzioni il cui valore rimane invariato per gli stati occupati dal corpo durante
+il suo moto (ad esempio l'energia, che è proprio il primo intergrale).
 
-Ad ogni integrale corrisponde un iperpiano sullo spazio delle fasi, trattandosi di uno spazio
+Ad ogni integrale corrisponde una ipersuperficie conetnuta nello spazio delle fasi, trattandosi di uno spazio
 delle fasi a 6 dimensioni, sappiamo che esitono 5 integrali $I_i,\ 1\le i\le 5$ e le soluzioni
-sono rappresentate dall'intersezione delle 5 ipersuperfici, al variare delle costanti
-$C_i,\ 1\le i\le 5$ che vengono imposte
-
+sono contenute nell'intersezione delle 5 ipersuperfici al variare delle costanti
+$C_i,\ 1\le i\le 5$ che vengono imposte come condizioni iniziali
 \begin{equation}
-	I_i = C_i,\ 1,\le i\le 5
+	I_i = C_i\ \ \  1,\le i\le 5
 \end{equation}
 
-In particolare, per studiare quale parte dello spazio delle fasi venisse riempita, Hénon e Heiles
-si sono concentrati sugli integrali isolanti, dato che gli integrali non-isolanti hanno come
-ipersuperficie un'infinità di fogli che riempie lo spazio delle fasi in maniera
-densa\cite{1964henonheiles}.
+Gli integrali possono essere di 2 tipi: isolanti o non isolanti. Un integrale si dice non isolante
+se la sua ipersuperficie associata riempie lo spazio delle fasi in maniera densa, risulta quindi inutile
+ai fini pratici per stabilire un confine per il sostegno della soluzione nel tempo.
 
-Gli integrali non-isolanti risultano quindi inutili nella pratica, vengono quindi ignorati e
-si fa riferimento agli integrali isolanti semplicemente come integrali.
+Di norma si ignorano gli integrali non-isolanti e si fa riferimento agli integrali isolanti semplicemente
+come \textit{integrali}.
 
-2 integrali isolanti in questo caso sono noti, sono rispettivamente l'energia (\ref{eq:consenergia})
-e il momento angolare (\ref{eq:consmomangolare})
-
+Due integrali isolanti in questo caso sono noti, sono rispettivamente l'energia (\ref{eq:consenergia})
+e il momento angolare (\ref{eq:consmomangolare}):
 \begin{eqnarray}
 	&&I_1 = U(R,z) + \frac{1}{2}(\dot{R}^2+R^2\dot{\theta}^2+\dot{z}^2) \label{eq:consenergia}\\
 	&&I_2 = R^2\dot{\theta} \label{eq:consmomangolare}
@@ -74,13 +79,24 @@ $I_3$ non è nota.
 
 Hénon e Heiles hanno quindi proceduto simulando il problema considerando un caso più generale
 e dimenticando la natura astronomica del problema, hanno cioè provato a studiare l'esistenza
-di un terzo integrale per un generico potenziale con simmetria rotazionale $U(R,z)$ generico.
+di un terzo integrale per un generico potenziale con simmetria assiale $U(R,z)$.
 
 \clearpage
 \section{Riduzione al moto su un piano}
-Il problema è del tutto equivalente al moto di un punto materiale su un piano con potenziale
-arbitrario. D'ora in avanti, lo spazio delle fasi sarà rappresentato da $(x,y,\dot{x},\dot{y})$,
-con $x$ e $y$ che vanno a sostituire $R$ e $z$. Con uno spazio delle fasi si hanno 3 integrali,
+Il problema è riducibile al moto di un punto materiale su un piano con potenziale arbitrario:
+se consideriamo:
+\begin{equation}
+	U(R,z) = \bar{U}(R,z) + \frac{C_2}{2R^2}
+\end{equation}
+allora otteniamo
+\begin{align}
+	&\dot{R} = -\frac{\partial U}{\partial R}&
+	\dot{z} = -\frac{\partial U}{\partial z}
+\end{align}
+e quindi abbiamo ridotto con successo il problema al moto su un piano.
+
+D'ora in avanti, lo spazio delle fasi sarà rappresentato da $(x,y,\dot{x},\dot{y})$,
+con $x$ e $y$ che vanno a sostituire $R$ e $z$. Con questo spazio delle fasi si hanno 3 integrali,
 e sappiamo che $I_1 = U(x,y)+\frac{1}{2}(\dot{x}^2+\dot{y}^2)$, l'energia totale, è isolante e $I_3$ è
 in generale non isolante.
 
@@ -91,28 +107,29 @@ A questo punto si vuole scoprire la natura del secondo integrale $I_2$.
 
 Sapendo 3 delle 4 componenti dello spazio delle fasi e l'energia iniziale, ad esempio $(x,y,\dot{y})$,
 è possibile
-ricavare la quarta, in questo caso $\dot{x}$ tramite
+ricavare la quarta, in questo caso $\dot{x}$, tramite:
 \begin{equation}
 	U(x,y)+\frac{1}{2}(\dot{x}^2+\dot{y}^2) = E \label{eq:consenergiaxy}
 \end{equation}
-e in particolare $\dot{x} = \sqrt{2E-2U(x,y)-\dot{y}^2}$
+e in particolare $\dot{x} = \pm \sqrt{2E-2U(x,y)-\dot{y}^2}$
 
 Dato che $\dot{x}^2\ge0$ possiamo dire che
 \begin{equation}
 	U(x,y)+\frac{1}{2}\dot{y}^2 \le E
 \end{equation}
-e tale equazione definisce un volume chiuso in $(x,y,\dot{y})$.
+e tale equazione definisce (solitamente) un volume limitato in $(x,y,\dot{y})$.
 
-In assenza di un secondo integrale isolante, tutto il volume viene eventualmente riempito,
-altrimenti, il moto rimane confinato sulla superficie risultante dalle soluzioni del sistema
-composto da (\ref{eq:consenergiaxy}) e $I_2 = C_2$.
+In assenza di un secondo integrale isolante, il volume viene eventualmente riempito
+dalle posizioni oocupate dal corpo.
+Altrimenti, il sistema composto da (\ref{eq:consenergiaxy}) e $I_2 = C_2$ forma una
+superficie nel quale 
 
 Per controllare l'esistenza di un secondo integrale, vengono considerate le intersezioni della
 traiettoria con un piano detto taglio di Poincaré. In questo caso, vengono considerati i punti
 $(y,\dot{y})$ che soddisfano $x=0$ e $\dot{x}>0$ e si controlla che in un tempo sufficiente lungo
 (idealmente infinito) i punti ottenuti non riempiano una superficie sul piano $(y,\dot{y})$. Nel
-caso ciò avvenga, la natura del secondo integrale sarà confermata essere non-isolante, nel caso
-invece tali punti rimangano confinati lungo delle curve, $I_2$ è di natura isolante.
+caso in cui ciò avvenga, la natura del secondo integrale sarà confermata essere non-isolante, mentre
+nel caso in cui tali punti rimangano confinati lungo delle curve, $I_2$ è di natura isolante.
 
 \section{Potenziale di Hénon-Heiles}
 
@@ -143,18 +160,80 @@ metodo numerico adeguati.
 \begin{eqnarray}	
 	&&U(q) = \frac{1}{2}(q_x^2+q_y^2+2q_x^2q_y-\frac{2}{3}q_y^3) \label{eq:potenziale}
 \end{eqnarray}
-tale potenziale (Figura \ref{img:potenzialehh}) è stato ricavato dopo alcuni tentativi
+tale potenziale (\ref{img:potenzialehh}) è stato ricavato dopo alcuni tentativi
 \cite{1964henonheiles}.
-I motivi che hanno portato alla scelta funzione (\ref{eq:potenziale}) sono (1)
+I motivi che hanno portato alla scelta funzione (\ref{eq:potenziale}) sono: (1)
 è semplice analiticamente e rende facile una computazione della traiettoria (si pensi al fatto
-che l'articolo originale, \cite{1964henonheiles} in bibliografia, risale al 1963);
-(2) presenta soluzioni con proprietà non banali\cite{hairer}. 
+che l'articolo originale risale al 1963);
+(2) presenta comunque soluzioni con proprietà non banali\cite{hairer}. 
 Hénon e Heiles ritengono anche che il potenziale (\ref{eq:potenziale}) sia rappresentativo del caso
 generico e che non ci siano cambiamenti fondamentali con l'inserimento di termini di ordine maggiore.
 
-\section{Integrazione numerica}
+\subsection{Studio qualitativo del potenziale}
 
-Come per tutti i sistemi hamiltoniani, le equazioni del moto sono date da:
+Iniziamo lo studio andando a calcolare gradiente ed hessiana di U:
+\begin{eqnarray}
+	\nabla_q U(q)= 
+	\begin{bmatrix}
+		q_x + 2q_xq_y\\
+		q_x^2 - q_y^2 + q_y
+	\end{bmatrix}\\[0.2cm]
+% 
+	\hess{U}(q)=
+	\begin{bmatrix}
+		2q_y + 1& 2q_x\\
+		2q_x& 1 - 2q_y
+	\end{bmatrix}
+\end{eqnarray}
+
+Risolvendo per $\nabla_q U = \mathbf{0}$ otteniamo 4 soluzioni, cioè punti di equilibrio
+$\hat{q}_i = (q_x, q_y)$:
+\begin{eqnarray*}
+	\hat{q}_1 = (0,0)\\
+	\hat{q}_2 = (0,1)\\
+	\hat{q}_3 = (-\frac{\sqrt{3}}{2}, -\frac{1}{2})\\
+	\hat{q}_4 = (\frac{\sqrt{3}}{2}, -\frac{1}{2})
+\end{eqnarray*}
+
+Dallo studio dell'hessiana su questi 4 punti otteniamo:
+\begin{eqnarray*}
+\hess{U}(\hat{q}_1) =
+	\begin{bmatrix}
+		1& 0\\ 0 & 1
+	\end{bmatrix} &definita\ positiva\\
+%
+\hess{U}(\hat{q}_2) = 
+	\begin{bmatrix}
+		3 & 0 \\ 0 & -1	
+	\end{bmatrix}\\
+%
+\hess{U}(\hat{q}_3) = 
+	\begin{bmatrix}
+		0 & -\sqrt{3} \\
+		-\sqrt{3} & 2
+	\end{bmatrix}\\
+%
+\hess{U}(\hat{q}_4) = 
+	\begin{bmatrix}
+		0 & \sqrt{3} \\
+		\sqrt{3} & 2
+	\end{bmatrix}\\
+\end{eqnarray*}
+
+Come si nota anche dal grafico \ref{img:curvelivello}, $\hat{q}_1$ risulta essere
+l'unico punto di equilibrio stabile e gli altri sono punti di sella, in particolare,
+$q_2, q_3, q_4$ sono proprio le intersezioni date da $U(q)=\frac{1}{6}$, rappresentate in rosso nel
+grafico appena menzionato.
+
+Dato che vale la legge di conservazione dell'energia e che l'energia cinetica non può essere negativa,
+le soluzioni per $H \le \frac{1}{6}$ con posizione iniziale appartenente alla regione interna al triangolo
+di vertici $q_2, q_3, q_4$ rimangono confinate al suo interno, dato che l'energia potenziale non può
+superare l'energia totale. Per cui esistono soluzioni globali ($t \in [0, +\infty)$).
+
+Studieremo quindi le orbite ottenute da $H(p,q)<=1/6$ e con posizione di partenza interna al triangolo
+
+\section{Integrazione numerica}
+Per i sistemi hamiltoniani, le equazioni del moto sono date da:
 \begin{eqnarray}
 	\dot{p} = -\frac{\partial H}{\partial q}\\
 	\dot{q} = \frac{\partial H}{\partial p}
@@ -171,11 +250,11 @@ Esprimibile in forma più compatta
 	\end{bmatrix} = 
 	J^{-1}\nabla H(p,q)
 \end{equation}
-dove $J$ è una matrice $2n\times 2n$ definita come $\begin{bmatrix}
+dove $J$ è la matrice simplettica fondamentale $2n\times 2n$ definita come $\begin{bmatrix}
 O&I\\-I&O \end{bmatrix}$. La sua inversa è $\begin{bmatrix}
 O&-I\\I&O \end{bmatrix}$.
 
-Utilizzando $H(p,q) = U(q)+\frac{1}{2}(p_x^2+P_y^2)$, dove $U$ è il potenziale (\ref{eq:potenziale})
+Utilizzando $H(p,q) = U(q)+\frac{1}{2}(p_x^2+p_y^2)$, dove $U$ è il potenziale (\ref{eq:potenziale})
 descritto nella sezione precedente, si ricavano le
 seguenti equazioni:
 $$
@@ -186,15 +265,73 @@ $$
 	\dot{p_y} = -q_x^2 + q_y^2 - q_y
 \end{cases}
 $$
+Ogni secondo membro di ciascuna di queste equazioni risulta differenziabile rispetto a
+$(q_x,q_y,p_x,p_y)$ per ogni punto $\in \mathbb{R}^4$. Perciò le soluzioni sono sempre
+uniche.
 
-Usando il metodo Størmer-Verlet come riferimento, dato che si comporta come la soluzione
-esatta\cite{hairer}, analizzeremo dal punto di vista della correttezza i metodi Eulero esplicito
-ed Eulero implicito.
+\subsection{Semplificazione di Størmer-Verlet per hamiltoniana separabile}
+Come nella maggior parte dei problemi di meccanica classica, la funzione hamiltoniana
+può essere espressa come somma di 2 funzioni:
+\begin{equation}
+	H(p,q) = T(p) + U(q)
+\end{equation}
+comunemente note come \textit{energia cinetica} ed \textit{energia potenziale}, che
+dipendono rispettivamente dai momenti e dalla posizione.
+
+Proviamo ad usare questa proprietà per semplificare il metodo di Størmer-Verlet:
+$$
+\begin{cases}
+	p_{n+\frac{1}{2}} = p_n - \frac{h}{2}\nabla_q H(p_{n+\frac{1}{2}},q_n)\\
+	q_{n+1} = q_n + h \nabla_p H(p_{n+\frac{1}{2}}, q_n)\\
+	p_{n+1} = p_{n+\frac{1}{2}} - \frac{h}{2} \nabla_q H(p_{n+\frac{1}{2}},q_{n+1})
+\end{cases}
+\implies
+\begin{cases}
+	p_{n+\frac{1}{2}} = p_n - \frac{h}{2}\nabla U(q_n)\\
+	q_{n+1} = q_n + h \nabla T(p_{n+\frac{1}{2}})\\
+	p_{n+1} = p_{n+\frac{1}{2}} - \frac{h}{2} \nabla U(q_{n+1})
+\end{cases}
+$$
+e quindi:
+$$
+\begin{cases}
+	q_{n+1} = q_n + h \nabla T(p_n - \frac{h}{2}\nabla U(q_n))\\
+	p_{n+1} = p_{n+\frac{1}{2}} - \frac{h}{2} (\nabla U(q_n)+\nabla U(q_{n+1}))
+\end{cases}
+$$
+sostituendo con $\nabla T(p)=p$:
+$$
+\begin{cases}
+	q_{n+1} = q_n + h(p_n-\frac{h}{2}\nabla U(q_n))\\
+	p_{n+1} = p_n - \frac{h}{2} (\nabla U(q_n)+\nabla U(q_{n+1}))
+\end{cases}
+$$
+
+Il risultato ottenuto è molto utile, in quanto non solo ci consente di calcolare il prossimo
+stato della simulazione in solo 2 passaggi, ma rende Størmer-Verlet un metodo esplicito, nonostante
+sia implicito nel caso generico.
+
+Questo consente di velocizzare i calcoli e semplificare molto sia l'implementazione su MatLab,in
+quanto non c'è bisogno di attuare metodi risolutivi, come Newton o iterazione di punto fisso.
+
+\subsection{Risultati}
+Utilizzeremo il metodo Størmer-Verlet come riferimento, dato che si comporta come la soluzione
+esatta\cite{hairer} e lo confronteremo con il metodo numerico più immediato: Eulero esplicito.
 
 Nei seguenti grafici mostreremo l'insieme delle intersezioni con il taglio di Poincaré (a colori
 diversi corrispondono condizioni iniziali differenti) e l'andamento dell'Hamiltoniana per una delle
 orbite rappresentate.
 
+In Figura \ref{img:stormerverlet} si nota come l'hamiltoniana presenta un errore piccolissimo rispetto
+al valore iniziale e segue un andamento periodico senza mai divergere, questo è il comportamento che 
+ci si aspetta da un metodo numerico simplettico.
+
+Dato che siamo sempre attorno al valore esatto ma non è perfettamente conservato, si dice che
+Størmer-Verlet \textit{pseudoconserva} l'energia.
+
+È possibile notare come all'aumentare dell'energia di partenza la regione che ammette un secondo
+integrale sia sempre più ristretta.
+\clearpage
 \begin{figure}[h!]
 	\centering
 	\begin{subfigure}[t]{.49\textwidth}
@@ -215,10 +352,58 @@ orbite rappresentate.
 	\end{subfigure}
 
 	\caption{Taglio di Poincaré e andamento dell'hamiltoniana per diversi valori di H,
-	ottenuti dal metodo di Størmer-Verlet}
+	ottenuti dal metodo di Størmer-Verlet, 4000 intersezioni per orbita, h=0.01}
+	\label{img:stormerverlet}
 \end{figure}
 
+A confronto, Eulero esplicito risulta essere molto meno affidabile: richiede passi molto più
+piccoli per ottenere un numero consistente di intersezioni prima che la simulazione diverga
+e possiamo vedere come l'errore dell'hamiltoniana si accumula in eccesso, comportamento tipico
+di Eulero esplicito.
 
+Queste simulazioni sono state svolte con un numero molto inferiore di intersezioni proprio per
+l'instabilità di questo metodo.
+
+\begin{figure}[h!]
+	\centering
+	\begin{subfigure}[t]{.49\textwidth}
+		\centering
+		\includegraphics[width=\linewidth]{../img/grafico_H_1-12_expEuler.png}
+	\end{subfigure}
+	\begin{subfigure}[t]{.49\textwidth}
+		\centering
+		\includegraphics[width=\linewidth]{../img/grafico_H_1-10_expEuler.png}
+	\end{subfigure}
+
+	\caption{Taglio di Poincaré e andamento dell'hamiltoniana per diversi valori di H,
+	ottenuti dal metodo di Eulero esplicito, 400 intersezioni per orbita, h=0.0005}
+\end{figure}
+
+Un secondo tentativo è stato fatto con un passo ancora più piccolo
+(Figura \ref{img:euleroesplicitopiccolo}) e ciò ha consentito di simulare anche
+orbite con energia di partenza pari ad 1/8. Nonostante ciò si nota che le orbite per le
+quali dovrebbe esistere un secondo integrale isolante non formano linee pulite ma l'errore
+introdotto dal metodo è chiaramente visibile.
+
+\begin{figure}[h!]
+	\centering
+	\begin{subfigure}[t]{.49\textwidth}
+		\centering
+		\includegraphics[width=\linewidth]{../img/grafico_H_1-12_expEuler_passoPiccolo.png}
+	\end{subfigure}
+	\begin{subfigure}[t]{.49\textwidth}
+		\centering
+		\includegraphics[width=\linewidth]{../img/grafico_H_1-10_expEuler_passoPiccolo.png}
+	\end{subfigure}
+	\begin{subfigure}[t]{.49\textwidth}
+		\centering
+		\includegraphics[width=\linewidth]{../img/grafico_H_1-8_expEuler_passoPiccolo.png}
+	\end{subfigure}
+
+	\caption{Taglio di Poincaré e andamento dell'hamiltoniana per diversi valori di H,
+	ottenuti dal metodo di Eulero esplicito, 400 intersezioni per orbita, h=0.00005}
+	\label{img:euleroesplicitopiccolo}
+\end{figure}
 
 \clearpage
 \printbibliography
