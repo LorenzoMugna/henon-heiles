@@ -15,10 +15,10 @@ F = F(3:4);
 f = matlabFunction(F, 'vars', {[qx; qy]});
 
 %% Parametri simulazione
-N_INTERSEZIONI = 300;
+N_INTERSEZIONI = 400;
 TIMEOUT = 500000;
-h = 0.0005;
-livelli_energetici = [1/10];%, 1/10, 1/8, 1/6, 1/4];
+h = 0.00005;
+livelli_energetici = [1/8, 1/6];%, 1/10, 1/8, 1/6, 1/4];
 QY0 = [0.1, 0.2, 0.3, 0.4, -0.2,0.1, 0.2, 0.3, 0.4, -0.18];
 PY0 = [zeros(1,5), 0.15, 0.12, 0.4, 0.06, -0];
 
@@ -44,7 +44,7 @@ for energia = livelli_energetici
 
 		% Metono numerico
 		while intersezioni < N_INTERSEZIONI
-			[pn, qn] = expEuler(p, q, h, f);
+			[pn, qn] = implEuler(p, q, h, f);
 
 			if q(1) < 0 && qn(1) >=0
 				intersezioni = intersezioni + 1;
