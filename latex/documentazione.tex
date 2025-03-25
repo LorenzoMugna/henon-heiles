@@ -69,29 +69,29 @@ con l'ipotesi che il potenziale gravitazionale della galassia fosse tempo-invari
 rispetto ad un asse, ovvero, usando un sistema di coordinate cilindriche $(R,\theta,z)$ si avrebbe 
 un potenziale in funzione solo di $R$ e $z$, $U(R,z)$.
 
-In particolare si sono chiesti:
-quale parte dello spazio delle fasi 6-dimesionale $(R,\theta,z, \dot{R},\dot{\theta}, \dot{z})$
-viene riempito dalle orbite dei corpi su lunghi periodi di tempo? \cite{1964henonheiles}
-Dove per lungi periodi si intende il tempo necessario al corpo per compiere molte rivoluzioni
+In particolare si sono chiesti: quale parte dello spazio delle fasi 6-dimensi\-onale
+$(R,\theta,z, \dot{R},\dot{\theta}, \dot{z})$ viene riempito dalle orbite dei corpi su lunghi
+periodi di tempo? \cite{1964henonheiles}
+Dove per lunghi periodi si intende il tempo necessario al corpo per compiere molte rivoluzioni
 intorno alla galassia.
 
 A questa domanda hanno provato a dare risposta cercando di studiare la natura degli integrali del moto,
 ovvero le funzioni il cui valore rimane invariato durante il moto del corpo (ad esempio l'energia,
 che è proprio il primo integrale).
 
-Ad ogni integrale corrisponde una ipersuperficie conetnuta nello spazio delle fasi; trattandosi di uno spazio
-delle fasi a 6 dimensioni, sappiamo che esitono 5 integrali $I_i,\ 1\le i\le 5$ e le soluzioni
+Ad ogni integrale corrisponde una ipersuperficie contenuta nello spazio delle fasi; trattandosi di uno spazio
+delle fasi a 6 dimensioni, sappiamo che esistono 5 integrali indipendenti $I_i,\ 1\le i\le 5$ e le soluzioni
 sono contenute nell'intersezione delle 5 ipersuperfici al variare delle costanti
-$C_i,\ 1\le i\le 5$ che vengono imposte come condizioni iniziali
+$C_i,\ 1\le i\le 5$ che vengono imposte come condizioni iniziali.
 \begin{equation}
 	I_i = C_i\ \ \  1,\le i\le 5
 \end{equation}
 
 Gli integrali possono essere di 2 tipi: isolanti o non-isolanti. Un integrale si dice non-isolante
-se la sua ipersuperficie associata riempie lo spazio delle fasi in maniera densa, risulta quindi inutile
+se l'ipersuperficie associata ad esso riempie lo spazio delle fasi in maniera densa, risulta quindi inutile
 ai fini pratici per stabilire un confine per il sostegno della soluzione nel tempo.
 
-Di norma si ignorano gli integrali non-isolanti e si fa riferimento agli integrali isolanti semplicemente
+Proprio per questo, di solito, si ignorano gli integrali non-isolanti e si fa riferimento agli integrali isolanti semplicemente
 come \textit{integrali}.
 
 Due integrali isolanti in questo caso sono noti, sono rispettivamente l'energia (\ref{eq:consenergia})
@@ -105,7 +105,7 @@ e il momento angolare (\ref{eq:consmomangolare}):
 $I_3$ non è nota.
 
 Hénon e Heiles hanno quindi proceduto simulando il problema considerando un caso più generale
-e trascurando la natura astronomica del problema, hanno cioè provato a studiare l'esistenza
+e trascurando la natura astronomica del problema. Hanno cioè provato a studiare l'esistenza
 di un terzo integrale per un generico potenziale con simmetria assiale $U(R,z)$.
 
 \clearpage
@@ -114,9 +114,18 @@ di un terzo integrale per un generico potenziale con simmetria assiale $U(R,z)$.
 Il problema è riducibile al moto di un punto materiale su un piano con potenziale arbitrario.
 Se consideriamo:
 \begin{equation}
-	U(R,z) = \bar{U}(R,z) + \frac{C_2}{2R^2}
+	U(R,z) = \bar{U}(R,z) + \frac{C_2^2}{2R^2} \label{eq:potenzialeriduzione}
 \end{equation}
-allora otteniamo
+dove $C_2$ è la costante per l'integrale del momento angolare
+e $\frac{C_2^2}{2R^2} = \frac{1}{2}R^2\dot{\theta}^2$, cioè l'energia
+cinetica dovuta al moto di rivoluzione intorno alla galassia.
+
+Essenzialmente, è come se il corpo fosse stato fermato lungo l'orbita e fosse stato vincolato lungo un piano
+parallelo all'asse di simmetria del potenziale, mentre la "forza centrifuga" (forza solamente apparente)
+è stata inclusa nel potenziale e causa una forza che allontana dall'asse $R=0$, infatti il termine
+$\frac{C_2^2}{2R^2}\to +\infty$  per $R\to0$.
+
+Derivando le leggi del moto dal potenziale (\ref{eq:potenzialeriduzione}) otteniamo:
 \begin{align}
 	&\ddot{R} = -\frac{\partial U}{\partial R}&
 	\ddot{z} = -\frac{\partial U}{\partial z}
@@ -124,28 +133,29 @@ allora otteniamo
 e a questo punto è facile notare come questo problema sia del tutto equivalente a quello del moto su un piano
 con potenziale arbitrario.
 
-D'ora in avanti, lo spazio delle fasi sarà rappresentato da $(x,y,\dot{x},\dot{y})$,
-con $x$ e $y$ che vanno a sostituire $R$ e $z$. Con questo spazio delle fasi si hanno 3 integrali,
-e sappiamo che $I_1 = U(x,y)+\frac{1}{2}(\dot{x}^2+\dot{y}^2)$, l'energia totale, è isolante e $I_3$ è
+Lo spazio delle fasi sarà ora rappresentato da $(q_x,q_y,p_x,p_y)$, tenendo a mente che $p_x = \dot{q_x}$
+e $p_y = \dot{q_y}$ e questo viene mostrato da (\ref{eq:leggimoto})
+con $q_x$ e $q_y$ che vanno a sostituire $R$ e $z$. Con questo spazio delle fasi si hanno 3 integrali,
+e sappiamo che $I_1 = U(q_x,q_y)+\frac{1}{2}(p_x^2+p_y^2)$, l'energia totale, è isolante e $I_3$ è
 in generale non isolante.
 
-Non esiste un'integrale per il momento angolare dato che nel caso generale $U(x,y)$ non ha
+Non esiste un'integrale per il momento angolare dato che nel caso generale $U(q_x,q_y)$ non ha
 simmetrie.
 
 Si vuole quindi scoprire la natura del secondo integrale $I_2$.
 
-Sapendo 3 delle 4 componenti dello spazio delle fasi e l'energia iniziale, ad esempio $(x,y,\dot{y})$,
-è possibile ricavare la quarta, in questo caso $\dot{x}$, tramite:
+Sapendo 3 delle 4 componenti dello spazio delle fasi e l'energia iniziale, ad esempio $(q_x,q_y,p_y)$,
+è possibile ricavare la quarta, in questo caso $p_x$, tramite:
 \begin{equation}
-	U(x,y)+\frac{1}{2}(\dot{x}^2+\dot{y}^2) = E \label{eq:consenergiaxy}
+	U(q_x,q_y)+\frac{1}{2}(p_x^2+p_y^2) = E \label{eq:consenergiaxy}
 \end{equation}
-da cui si ricava $\dot{x} = \pm \sqrt{2E-2U(x,y)-\dot{y}^2}$
+da cui si ricava $p_x = \pm \sqrt{2E-2U(q_x,q_y)-p_y^2}$.
 
-Dato che $\dot{x}^2 \ge 0$ possiamo dire che
+Dato che $p_x^2 \ge 0$ possiamo dire che:
 \begin{equation}
-	U(x,y)+\frac{1}{2}\dot{y}^2 \le E
+	U(q_x,q_y)+\frac{1}{2}p_y^2 \le E
 \end{equation}
-e tale equazione definisce (solitamente) un volume limitato in $(x,y,\dot{y})$.
+e tale equazione definisce (solitamente) un volume limitato in $(q_x,q_y,p_y)$.
 
 In assenza di un secondo integrale isolante, il volume viene eventualmente riempito
 dagli stati assunti dal corpo con lo scorrere del tempo.
@@ -154,8 +164,8 @@ superficie nella quale il moto del corpo rimane confinato.
 
 Per controllare l'esistenza di un secondo integrale, vengono considerate le intersezioni della
 traiettoria con un piano detto taglio di Poincaré. In questo caso, vengono considerati i punti
-$(y,\dot{y})$ che soddisfano $x=0$ e $\dot{x}>0$ e si controlla che in un tempo sufficiente lungo
-(idealmente infinito) i punti ottenuti non riempiano una superficie sul piano $(y,\dot{y})$. Nel
+$(q_y,p_y)$ che soddisfano $q_x=0$ e $p_x>0$ e si controlla che in un tempo sufficiente lungo
+(idealmente infinito) i punti ottenuti non riempiano una superficie sul piano $(q_y,p_y)$. Nel
 caso in cui ciò avvenga, la natura del secondo integrale sarà confermata essere non-isolante. Mentre
 nel caso in cui tali punti rimangano confinati lungo delle curve, $I_2$ sarà confermato essere di natura
 isolante.
@@ -250,14 +260,14 @@ Dallo studio dell'hessiana su questi 4 punti otteniamo:
 \end{eqnarray*}
 
 $\hat{q}_1$ risulta essere l'unico punto di equilibrio stabile e gli altri sono punti di sella, in particolare,
-$q_2, q_3, q_4$ sono proprio le intersezioni date dalle linee di $U(q)=\frac{1}{6}$, rappresentate in rosso nel
-grafico \ref{img:curvelivello}. I punti $q_2, q_3, q_4$ formano un triangolo equilatero con centro $q_1$.
+$\hat{q}_2, \hat{q}_3, \hat{q}_4$ sono proprio le intersezioni date dalle linee di $U(q)=\frac{1}{6}$, rappresentate in rosso nel
+grafico \ref{img:curvelivello}. I punti $\hat{q}_2, \hat{q}_3, \hat{q}_4$ formano un triangolo equilatero con centro $\hat{q}_1$.
 
 \subsection{Esistenza globale di una soluzione}
-Dato che vale la legge di conservazione dell'energia e che l'energia cinetica non può essere negativa,
+Dato che vale la legge di conservazione dell'energia, 
 le soluzioni per $H \le \frac{1}{6}$ con posizione iniziale appartenente alla regione interna al triangolo
-di vertici $q_2, q_3, q_4$ rimangono confinate al suo interno. Questo perché l'energia potenziale non può
-superare l'energia totale. Per cui esistono soluzioni globali.
+di vertici $\hat{q}_2, \hat{q}_3, \hat{q}_4$ rimangono confinate al suo interno. Questo perché l'energia potenziale non può
+superare l'energia totale. Per cui esistono sicuramente soluzioni globali per queste condizioni.
 
 Studieremo quindi le orbite ottenute da $H(p,q) \le \frac{1}{6}$ e con posizione di partenza interna al triangolo
 
@@ -286,17 +296,17 @@ O&-I\\I&O \end{bmatrix}$.
 Utilizzando $H(p,q) = U(q)+\frac{1}{2}(p_x^2+p_y^2)$, dove $U$ è il potenziale (\ref{eq:potenziale})
 descritto nella sezione precedente, si ricavano le
 seguenti equazioni:
-$$
+\begin{equation}
 \begin{cases}
 	\dot{q_x} = p_x\\
 	\dot{q_y} = p_y\\
 	\dot{p_x} = -q_x-2q_x q_y\\
 	\dot{p_y} = -q_x^2 + q_y^2 - q_y
-\end{cases}
-$$
+\end{cases}\label{eq:leggimoto}
+\end{equation}
 Ogni secondo membro di ciascuna di queste equazioni risulta differenziabile rispetto a
 $(q_x,q_y,p_x,p_y)$ per ogni punto $\in \mathbb{R}^4$. Perciò sono funzioni localmente
-Lipschitziane e le soluzioni del problema di Cauchy sono sempre uniche.
+lipschitziane e le soluzioni del problema di Cauchy sono sempre uniche.
 
 \subsection{Semplificazione di Størmer-Verlet per hamiltoniana separabile}
 Come nella maggior parte dei problemi di meccanica classica, la funzione hamiltoniana
@@ -349,12 +359,12 @@ Utilizzeremo il metodo Størmer-Verlet come riferimento, dato che si comporta co
 esatta \cite{hairer} e lo confronteremo con Eulero implicito ed Eulero esplicito.
 
 Data la tendenza di Eulero esplicito ad aumentare l'energia presente nel sistema e la tendenza
-di Eulero implicito a diminiure l'energia, Eulero esplicito verrà usato per i casi con energia
-bassa ($H=\frac{1}{12}, H=\frac{1}{10}$) menter Eulero implicito verrà usato nei sistemi con
+di Eulero implicito a diminuire l'energia, Eulero esplicito verrà usato per i casi con energia
+bassa ($H=\frac{1}{12}, H=\frac{1}{10}$) mentre Eulero implicito verrà usato nei sistemi con
 energia alta ($H=\frac{1}{8}, H=\frac{1}{6}$)
 
 Nei seguenti grafici mostreremo l'insieme delle intersezioni con il taglio di Poincaré (a colori
-diversi corrispondono condizioni iniziali differenti) e l'andamento dell'Hamiltoniana per una delle
+diversi corrispondono condizioni iniziali differenti) e l'andamento dell'hamiltoniana per una delle
 orbite rappresentate.
 
 In Figura \ref{img:stormerverlet} si nota come l'hamiltoniana presenta un errore piccolissimo rispetto
@@ -392,9 +402,9 @@ integrale sia sempre più ristretta.
 
 Le simulazioni svolte con Eulero esplicito ed implicito risultano molto lontane da ciò che ci
 si aspetta. Risulta molto inferiore anche il numero di intersezioni studiato.
-Per Eulero esplicito infatti, il corpo esce dalla zona precentemente designata molto velocemente
+Per Eulero esplicito infatti, il corpo esce dalla zona precedentemente designata molto velocemente
 e smette di intersecare il piano $q_x=0$ dopo relativamente poche rivoluzioni. D'altra parte,
-l'enerigia in Eulero implicito segue un trend decrescente esponenziale e basta poco tempo affinché
+l'energia in Eulero implicito segue un trend decrescente esponenziale e basta poco tempo affinché
 il corpo si fermi al centro, rendendo superfluo uno studio più approfondito.
 \clearpage
 \begin{figure}[h!]
@@ -454,11 +464,21 @@ soprattutto se si osserva il grafico dell'energia.
 
 \clearpage
 \section{Codice sorgente}
+\subsection{Definizioni funzioni del problema}
+\lstinputlisting[language=Octave]{../matlab/funzioni_comuni.m}
+
 \subsection{Creazione grafico potenziale}
 \lstinputlisting[language=Octave]{../matlab/grafico_potenziale.m}
 \clearpage
-\subsection{Metodi numerici}
 
+\subsection{Metodi numerici}
+\lstinputlisting[language=Octave]{../matlab/expEuler.m}
+\lstinputlisting[language=Octave]{../matlab/implEuler.m}
+\lstinputlisting[language=Octave]{../matlab/stormerverlet.m}
+\clearpage
+
+\subsection{Creazione spazio delle fasi con taglio di Poincaré}
+\lstinputlisting[language=Octave]{../matlab/main.m}
 
 \clearpage
 \printbibliography

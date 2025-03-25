@@ -1,18 +1,19 @@
-function [p, q] = implEuler(pin, qin, h, f)
-    q = qin;
-    p = pin;
+%% Eulero implicito
+function [pnext, qnext] = implEuler(pn, qn, h, f)
+    qnext = qn;
+    pnext = pn;
 
     tol = 1e-10;
     max_iter = 100;
 
     for iter = 1:max_iter
-        q_prev = q;
-        p_prev = p;
+        q_prev = qnext;
+        p_prev = pnext;
 
-        q = qin + h * p + h^2/2 * f(q);
-        p = pin + h * f(q);
+        qnext = qn + h * pnext + h^2/2 * f(qnext);
+        pnext = pn + h * f(qnext);
 
-        if norm(q - q_prev, 2) < tol && norm(p - p_prev, 2) < tol
+        if norm(qnext - q_prev, 2) < tol && norm(pnext - p_prev, 2) < tol
             break;
         end
     end
