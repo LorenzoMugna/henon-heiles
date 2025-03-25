@@ -1,4 +1,4 @@
-\documentclass[a4paper]{article}
+\documentclass[a4paper, 12pt]{article}
 \usepackage[utf8]{inputenc}
 \usepackage{amsmath}
 \usepackage{amssymb}
@@ -6,8 +6,33 @@
 \usepackage{tikz}
 \usepackage{pgfplots}
 \usepackage{subcaption}
+\usepackage{listingsutf8}
 \usepackage[backend=bibtex]{biblatex}
 \usepackage[italian]{babel}
+
+\lstset{
+    inputencoding=utf8/latin1,         % Fix UTF-8 encoding issues
+    extendedchars=true,         % Support extended characters
+    basicstyle=\ttfamily\footnotesize, % Use monospaced font and smaller size
+    breaklines=true,            % Automatically break long lines
+    frame=single,               % Add a frame around the code
+    numbers=left,               % Add line numbers on the left
+    numberstyle=\tiny,          % Use tiny font for line numbers
+    captionpos=b,               % Place captions below the code
+    tabsize=4,                  % Set tab size to 4 spaces
+    showstringspaces=false      % Do not show spaces in strings
+    literate={à}{{\`a}}1 {è}{{\`e}}1 {ì}{{\`i}}1 {ò}{{\`o}}1 {ù}{{\`u}}1
+             {À}{{\`A}}1 {È}{{\`E}}1 {Ì}{{\`I}}1 {Ò}{{\`O}}1 {Ù}{{\`U}}1
+             {á}{{\'a}}1 {é}{{\'e}}1 {í}{{\'i}}1 {ó}{{\'o}}1 {ú}{{\'u}}1
+             {Á}{{\'A}}1 {É}{{\'E}}1 {Í}{{\'I}}1 {Ó}{{\'O}}1 {Ú}{{\'U}}1
+             {â}{{\^a}}1 {ê}{{\^e}}1 {î}{{\^i}}1 {ô}{{\^o}}1 {û}{{\^u}}1
+             {Â}{{\^A}}1 {Ê}{{\^E}}1 {Î}{{\^I}}1 {Ô}{{\^O}}1 {Û}{{\^U}}1
+             {ä}{{\"a}}1 {ë}{{\"e}}1 {ï}{{\"i}}1 {ö}{{\"o}}1 {ü}{{\"u}}1
+             {Ä}{{\"A}}1 {Ë}{{\"E}}1 {Ï}{{\"I}}1 {Ö}{{\"O}}1 {Ü}{{\"U}}1
+             {ã}{{\~a}}1 {õ}{{\~o}}1 {ñ}{{\~n}}1
+             {Ã}{{\~A}}1 {Õ}{{\~O}}1 {Ñ}{{\~N}}1
+             {ç}{{\c{c}}}1 {Ç}{{\c{C}}}1
+}
 
 
 \numberwithin{equation}{section}
@@ -341,7 +366,6 @@ l'energia viene \textit{pseudoconservata} .
 
 È possibile notare come all'aumentare dell'energia di partenza la regione che ammette un secondo
 integrale sia sempre più ristretta.
-\clearpage
 \begin{figure}[h!]
 	\centering
 	\begin{subfigure}[t]{.49\textwidth}
@@ -427,6 +451,14 @@ soprattutto se si osserva il grafico dell'energia.
 	ottenuti dal metodo di Eulero esplicito, 400 intersezioni per orbita, h=0.00005}
 	\label{img:euleroesplicitopiccolo}
 \end{figure}
+
+\clearpage
+\section{Codice sorgente}
+\subsection{Creazione grafico potenziale}
+\lstinputlisting[language=Octave]{../matlab/grafico_potenziale.m}
+\clearpage
+\subsection{Metodi numerici}
+
 
 \clearpage
 \printbibliography
